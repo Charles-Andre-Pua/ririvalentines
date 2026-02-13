@@ -16,7 +16,7 @@ let noClickCount = 0;
 let moveCount = 0;
 const maxMoves = 3;
 let inactivityTimer;
-let hasYesMoved = false;
+let hasYesMoved;
 let lastHeartTime = 0;
 let msgIndex = 0;
 
@@ -58,7 +58,7 @@ function spawnHeart() {
 
 
 
-if (yesBtn) {
+if (window.location.pathname === '/index.html') {
 function updateGif(newSrc) {
     mainGif.classList.add('gif-fade');
     setTimeout(() => {
@@ -88,9 +88,7 @@ function resetInactivityTimer() {
     hidePointer();
     clearTimeout(inactivityTimer);
     inactivityTimer = setTimeout(() => {
-        if (successOverlay.style.display !== 'flex') {
-            showPointer();
-        }
+        showPointer();
         hasYesMoved = false;
     }, 3000) ; 
 }
@@ -123,6 +121,7 @@ yesBtn.addEventListener('mouseover', () => {
         phraseDisplay.innerText = yesPhrases[moveCount];
         phraseDisplay.classList.add('visible');
         moveCount++;
+        hasYesMoved = true;
         hidePointer();
     }
 });
@@ -144,15 +143,14 @@ noBtn.addEventListener('click', () => {
         pointer.style.transform = `scale(${pointerScale})`;
         noClickCount++;
         showPointer(); 
-        hasYesMoved = false;
-
-       if (noClickCount === noPhrases.length) {
-        noBtn.disabled = true;
-        yesBtn.style.display = "none"; 
-        pointer.style.display = "none";
-        noBtn.style.margin = "0 auto";
-        noBtn.style.transform = "scale(1.2)";
-        updateGif(failedGif);
+        
+        if (noClickCount === noPhrases.length) {
+            noBtn.disabled = true;
+            yesBtn.style.display = "none"; 
+            pointer.style.display = "none";
+            noBtn.style.margin = "0 auto";
+            noBtn.style.transform = "scale(1.2)";
+            updateGif(failedGif);
         }
     }
 });
@@ -199,7 +197,8 @@ setInterval(createFallingElement, 350);
 }
 
 // Check if we are on success.html to run the firework animation
-if (display) {    // Typewriter messages on success.html
+if (window.location.pathname === '/success.html') {
+    // Typewriter messages on success.html
 const messages = [
     "You are my favorite person ever! ✨",
     "Lablab kaayu ang bebe 🥰",
