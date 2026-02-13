@@ -58,7 +58,7 @@ function spawnHeart() {
 
 
 
-if (window.location.pathname === '/index.html') {
+if (yesBtn) {
 function updateGif(newSrc) {
     mainGif.classList.add('gif-fade');
     setTimeout(() => {
@@ -197,8 +197,7 @@ setInterval(createFallingElement, 350);
 }
 
 // Check if we are on success.html to run the firework animation
-if (window.location.pathname === '/success.html') {
-    // Typewriter messages on success.html
+if (display) {  
 const messages = [
     "You are my favorite person ever! ✨",
     "Lablab kaayu ang bebe 🥰",
